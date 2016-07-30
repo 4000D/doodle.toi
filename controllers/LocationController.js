@@ -69,7 +69,10 @@ module.exports = {
      * LocationController.create()
      */
     create: function (req, res) {
-        var Location = new LocationModel({			name : req.body.name,			latitude : req.body.latitude,			longitude : req.body.longitude
+        var Location = new LocationModel({
+          name : req.body.name,			
+          latitude : req.body.latitude,			
+          longitude : req.body.longitude
         });
 
         Location.save(function (err, Location) {
@@ -101,7 +104,9 @@ module.exports = {
                 });
             }
 
-            Location.name = req.body.name ? req.body.name : Location.name;			Location.latitude = req.body.latitude ? req.body.latitude : Location.latitude;			Location.longitude = req.body.longitude ? req.body.longitude : Location.longitude;			
+            Location.name = req.body.name ? req.body.name : Location.name;			
+            Location.latitude = req.body.latitude ? req.body.latitude : Location.latitude;			
+            Location.longitude = req.body.longitude ? req.body.longitude : Location.longitude;			
             Location.save(function (err, Location) {
                 if (err) {
                     return res.status(500).json({
