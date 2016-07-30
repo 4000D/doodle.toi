@@ -5,6 +5,7 @@ body {
   height: 100%;
   background-image: url("/images/splash_background.png");
   background-size: cover;
+
 }
 
 a {
@@ -38,7 +39,6 @@ a {
   height: 80px;
 }
 
-
 .login-box {
   margin-top: 40%;
 }
@@ -46,4 +46,17 @@ a {
 .login-btn > img {
   width: 80%;
   margin: 8px 0px;
+}
+
+
+.logo-image > img {
+  width: 80%;
+}
+
+.location-loading-image {
+  margin-top: 15%;
+}
+
+.location-loading-image > img {
+  width: 100%;
 }

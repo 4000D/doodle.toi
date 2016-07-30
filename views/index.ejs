@@ -31,29 +31,38 @@
 </head>
 <body>
 
-<h1 class="main-title text-center">doodle.toi</h1>
+<div id="main_page_container">
+    <h1 class="main-title text-center">doodle.toi</h1>
 
-<div class="subtitle-box text-center">Let's write something on the wall</div>
+    <div class="subtitle-box text-center">Let's write something on the wall</div>
 
-<!-- 로딩 아이콘 영역 -->
-<div class="loading-icon">
-    <div class="loading-image text-center">
-        <img src="/images/splash_indicator.png" />
+    <!-- 로딩 아이콘 영역 -->
+    <div class="loading-icon">
+        <div class="loading-image text-center">
+            <img src="/images/splash_indicator.png" />
+        </div>
+        <div class="loading-text text-center">LOADING APP</div>
     </div>
-    <div class="loading-text text-center">LOADING APP</div>
+
+    <!-- 로그인 영역  -->
+    <div class="login-box" style="display: none;">
+        <div id="naver_login_btn" class="login-btn text-center">
+            <img src="/images/main_naverlogin.png" />
+        </div>
+        <div id="kakao_login_btn" class="login-btn text-center">
+            <img src="/images/main_kakaologin.png" />
+        </div>
+    </div>
 </div>
 
-<!-- 로그인 영역  -->
-<div class="login-box" style="display: none;">
-    <div id="naver_login_btn" class="login-btn text-center">
-        <img src="/images/main_naverlogin.png" />
+<div id="loading_page_container" style="display: none;">
+    <div class="logo-image text-center">
+        <img src="/images/logo_loading.gif" />
     </div>
-    <div id="kakao_login_btn" class="login-btn text-center">
-        <img src="/images/main_kakaologin.png" />
+    <div class="location-loading-image text-center">
+        <img src="/images/get_location_success.gif" />
     </div>
 </div>
-
-
 
 
 

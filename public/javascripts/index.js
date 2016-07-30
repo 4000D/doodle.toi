@@ -19,15 +19,24 @@ $( document ).ready(function() {
     $('.login-box').show('slow');
   }
 
+  function changeToLoadingPage() {
+    $('#main_page_container').hide();
+    $('#loading_page_container').show();
+  }
+
   function bindClickEvent() {
     $('#naver_login_btn').click(function() {
       alert("네이버 로그인 처리");
+      changeToLoadingPage();
     });
 
     $('#kakao_login_btn').click(function() {
       alert("카카오 로그인 처리");
+      changeToLoadingPage();
     });
   }
+
+
 
   animateLoading();
   bindClickEvent();
