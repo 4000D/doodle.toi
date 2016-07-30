@@ -9,7 +9,7 @@ HttpUtil.getData = function(url, params, callback) {
     data: params,
     error: function errorHandler(jqXHR, textStatus, errorThrown) {
       alert("Error");
-      callback("Error");
+      callback();
     },
     success: function successHandler(data, status, xhr) {
       callback(data)
@@ -26,7 +26,7 @@ HttpUtil.postData = function(url, params, callback) {
     data: JSON.stringify(params),
     error: function errorHandler(jqXHR, textStatus, errorThrown) {
       alert("Error");
-      callback("Error");
+      callback();
     },
     success: function successHandler(data, status, xhr) {
       callback(data)
