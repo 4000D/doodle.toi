@@ -1,9 +1,12 @@
 $('document').ready(function() {
+  var locId = location.search.replace('?loc_id=', '');
   var boardItems = [];
 
+  console.log(locId);
   function draw() {
-    console.log(HttpUtil);
-    //TODO: 서버에서 데이터 가져와야함!
+    HttpUtil.getData('locations/'+locId+'/comments', {}, function(err, data) {
+      console.log(data);
+    });
   }
 
   function bindClickEvent() {

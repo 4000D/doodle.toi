@@ -8,14 +8,11 @@ HttpUtil.getData = function(url, params, callback) {
     type: 'GET',
     data: params,
     error: function errorHandler(jqXHR, textStatus, errorThrown) {
+      alert("Error");
       callback("Error");
     },
     success: function successHandler(data, status, xhr) {
-      if (data.resultCode === 0) {
-        callback(null, data.data)
-      } else {
-        callback("Error");
-      }
+      callback(data)
     }
   });
 };
@@ -28,14 +25,11 @@ HttpUtil.postData = function(url, params, callback) {
     dataType: 'json',
     data: JSON.stringify(params),
     error: function errorHandler(jqXHR, textStatus, errorThrown) {
-      callback("Error", null);
+      alert("Error");
+      callback("Error");
     },
     success: function successHandler(data, status, xhr) {
-      if (data.resultCode === 0) {
-        callback(null, data.data);
-      } else {
-        callback("Error", data.errors);
-      }
+      callback(data)
     }
   });
 };
@@ -48,14 +42,11 @@ HttpUtil.putData = function(url, params, callback) {
     dataType: 'json',
     data: JSON.stringify(params),
     error: function errorHandler(jqXHR, textStatus, errorThrown) {
-      callback("Error", null);
+      alert("Error");
+      callback("Error");
     },
     success: function successHandler(data, status, xhr) {
-      if (data.resultCode === 0) {
-        callback(null, data.data)
-      } else {
-        callback("Error", null);
-      }
+      callback(data)
     }
   });
 };
@@ -68,14 +59,11 @@ HttpUtil.deleteData = function(url, params, callback) {
     dataType: 'json',
     data: JSON.stringify(params),
     error: function errorHandler(jqXHR, textStatus, errorThrown) {
-      callback("Error", null);
+      alert("Error");
+      callback("Error");
     },
     success: function successHandler(data, status, xhr) {
-      if (data.resultCode === 0) {
-        callback(null, data.data)
-      } else {
-        callback("Error", null);
-      }
+      callback(data)
     }
   });
 };
