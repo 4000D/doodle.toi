@@ -1,12 +1,3 @@
-/**
- * 1. load() : 처음 사용자의 현재 위치를 받아온다.
- * 2. successCallback() : load()가 성공하면 실행됨. 
- *  - 현재 위도, 경도와 DB에 저장된 위도, 경도를 비교하여 가장 가까운 거리의 Location을 찾는다.
- *  - loc_id에 Location._id 를 저장.
- * 3. 
- *
- *
- */
 $( document ).ready(function() {
 
   function animateLoading() {
@@ -35,6 +26,5 @@ $( document ).ready(function() {
   setTimeout(function() {
     changeToLoginPage();
   }, 2000);
-
 });
 

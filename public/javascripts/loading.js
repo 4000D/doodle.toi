@@ -27,7 +27,6 @@ $( document ).ready(function() {
 
     result.forEach( (loc) => {
       var dist = distance(cur_latitude, cur_longitude, loc.latitude, loc.longitude);
-    console.log(`distance(${cur_latitude}, ${cur_longitude}, ${loc.latitude}, ${loc.longitude}) : ${dist}, ${loc._id}`);
     if (dist < min_dist) {
       min_dist = dist;
       loc_id = loc._id;
@@ -37,8 +36,8 @@ $( document ).ready(function() {
     console.log(`closest: ${cur_latitude}, ${cur_longitude} ~ ${loc_id}`);
 
     setTimeout(function() {
-      location.href = "/board?lat="+cur_latitude+"&lng="+cur_longitude;
-    }, 3000);
+      location.href = "/board?loc_id="+loc_id;
+    }, 1000);
 
   });
   }
