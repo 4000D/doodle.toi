@@ -28,5 +28,7 @@ body {
     resize: none;
     padding-left: 20px;
     padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     background-color: transparent;
 }
