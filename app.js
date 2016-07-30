@@ -23,7 +23,6 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
-
 passport.use(new NaverStrategy({
     clientID: config.naver.clientID,
     clientSecret: config.naver.clientSecret,
