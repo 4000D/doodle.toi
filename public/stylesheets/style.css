@@ -37,3 +37,13 @@ a {
 .loading-icon .loading-image img {
   height: 80px;
 }
+
+
+.login-box {
+  margin-top: 40%;
+}
+
+.login-btn > img {
+  width: 80%;
+  margin: 8px 0px;
+}

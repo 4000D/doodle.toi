@@ -14,7 +14,30 @@ $( document ).ready(function() {
     $('.loading-image > img').animate({'margin-left' : '50px'}, 'slow', null, animateLoading);
   }
 
+  function changeToLoginPage() {
+    $('.loading-icon').hide('slow');
+    $('.login-box').show('slow');
+  }
+
+  function bindClickEvent() {
+    $('#naver_login_btn').click(function() {
+      alert("네이버 로그인 처리");
+    });
+
+    $('#kakao_login_btn').click(function() {
+      alert("카카오 로그인 처리");
+    });
+  }
+
   animateLoading();
+  bindClickEvent();
+  // 3초 뒤 로그인 페이지로 변경
+  setTimeout(function() {
+    changeToLoginPage();
+  }, 3000);
+
+
+
 
   var
     result
