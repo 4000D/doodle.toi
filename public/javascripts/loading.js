@@ -38,7 +38,7 @@ $( document ).ready(function() {
 
     setTimeout(function() {
       location.href = "/board?lat="+cur_latitude+"&lng="+cur_longitude;
-    }, 3000);
+    }, 1000);
 
   });
   }
