@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www & nodemon lib/TTS.js &"
+    "start": "node lib/TTS.js & nodemon ./bin/www"
   },
   "dependencies": {
     "JSONStream": "^1.1.4",
