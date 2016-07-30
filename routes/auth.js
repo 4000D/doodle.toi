@@ -17,7 +17,7 @@ router.get('/naver/callback',
     function(req, res) {
   console.log(`req.params.code: ${req.params.code}`);
   console.log(`req.user: ${req.user}`);
-  res.redirect('/login_success.html')
+  res.redirect('/loading');
 });
 
 // kakao login page
@@ -33,7 +33,7 @@ router.get('/kakao',
 router.get('/kakao/callback', function (req, res) {
   console.log(`req.params.code: ${req.params.code}`);
   console.log(`req.user: ${req.user}`);
-  res.redirect('/login_success.html')
+  res.redirect('/loading');
 });
 
 module.exports = router;
