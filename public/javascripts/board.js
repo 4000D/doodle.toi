@@ -15,7 +15,7 @@ $('document').ready(function() {
   }
 
   function drawBoardItem(boardItem) {
-    var targetItem = $('.board-item[data-position=' + boardItem.index_x.toString() + boardItem.index_y.toString() + ']')
+    var targetItem = $('.board-item[data-position=' + boardItem.index_x.toString() + boardItem.index_y.toString() + ']');
     targetItem.children('textarea').text(boardItem.content);
   }
 
@@ -24,7 +24,6 @@ $('document').ready(function() {
       var itemText = $(this).val();
       var itemPosition = $(this).data('position');
 
-      console.log(itemText);
       if (itemText) {
         //TODO: 댓글 모달 띄우기!
         alert("댓글");
