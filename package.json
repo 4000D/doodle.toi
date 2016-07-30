@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "nodemon ./bin/www & nodemon lib/TTS.js &"
   },
   "dependencies": {
     "JSONStream": "^1.1.4",
@@ -24,7 +24,8 @@
     "request": "^2.74.0",
     "serve-favicon": "~2.3.0",
     "socket.io": "^1.4.8",
-    "stream": "0.0.2"
+    "stream": "0.0.2",
+    "zmq": "^2.15.3"
   },
   "devDependencies": {
     "nodemon": "^1.10.0"

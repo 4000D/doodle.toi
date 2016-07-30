@@ -4,6 +4,10 @@ var LocationModel = require('../models/LocationModel.js');
 var Q = require('q');
 var async = require('async');
 
+var zmq = require('zmq');
+
+var config = require('../config/config.js');
+
 var mongoose = require('mongoose');
 mongoose.Promise = Q.Promise;
 
@@ -95,6 +99,21 @@ module.exports = {
                         error: err
                     });
                 }
+
+                // TSS
+                var REQ = zmq.socket('req');
+
+                REQ.connect(config.routerIPC);
+
+                REQ.send(JSON.stringify({
+                  comment_id: Comment._id,
+                  text: Comment.content
+                }));
+
+                REQ.on('close', function() {
+                  REQ.close();
+                });
+
                 return res.status(201).json(Comment);
             });
           } else {
