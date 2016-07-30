@@ -3,6 +3,8 @@ $('document').ready(function() {
   var boardItems = [];
   var selectedItemId = null;
   var selectedPosition = null;
+  var currentIdx = 0;
+  var audioDom = document.getElementById("audio");
 
   function draw() {
     animateShow();
@@ -50,6 +52,25 @@ $('document').ready(function() {
         $('#write_modal_container').modal('toggle');
       }
       return false;
+    });
+
+    $('#play_btn').click(function() {
+      var idList = _.pluck(boardItems, '_id');
+
+      if (idList[currentIdx]) {
+        audioDom.src = '/upload/' + idList[currentIdx];
+        audioDom.play();
+      }
+
+      audioDom.addEventListener("ended", function(){
+        currentIdx++;
+        audioDom.currentTime = 0;
+        if (idList[currentIdx]) {
+          audioDom.find('source').attr('src', '/upload/' + idList[currentIdx]);
+        }
+        console.log("ended");
+      });
+
     });
   }
 
