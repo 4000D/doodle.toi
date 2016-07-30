@@ -14,6 +14,15 @@ $( document ).ready(function() {
     , cur_longitude
     , loc_id;
 
+  setTimeout(function() {
+    if (!cur_latitude || !cur_longitude) {
+      $('#get_location_success_image').hide();
+      $('#get_location_fail_image').show();
+      alert("위치를 가져올 수 없습니다.");
+    }
+  }, 5000);
+
+
   function successCallback(position) {
     cur_latitude = position.coords.latitude;
     cur_longitude = position.coords.longitude;
@@ -56,7 +65,7 @@ $( document ).ready(function() {
     } else {
       $('#get_location_success_image').hide();
       $('#get_location_fail_image').show();
-      alert("geolocation not supported");
+      alert("위치를 가져올 수 없습니다.");
     }
   }
 
