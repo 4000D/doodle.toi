@@ -37,5 +37,10 @@ textarea {
 
 .modal-body textarea {
     width: 100%;
+}
 
+.modal-dialog {
+    width: 60%;
+    margin-top: 20%;
+    margin-left: 20%;
 }

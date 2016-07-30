@@ -41,11 +41,26 @@ $('document').ready(function() {
       if (itemText) {
         bindCommentModalEvent();
         $('#comment_modal_container').modal('toggle');
+        getComments(selectedItemId);
       } else {
         bindWriteModalEvent();
         $('#write_modal_container').modal('toggle');
       }
       return false;
+    });
+  }
+
+  function getComments(parentId) {
+    HttpUtil.getData('/comments/' + parentId + '/with_children', {}, function(data) {
+      if (data && data.children) {
+        var html = '';
+        for (var i = 0; i < data.children.length; i++) {
+          html += '<li>' + data.children[i].content + '</li>';
+        }
+        console.log(html);
+        $('#comment_list_container').empty();
+        $('#comment_list_container').append(html);
+      }
     });
   }
 
@@ -55,9 +70,18 @@ $('document').ready(function() {
     });
 
     $('#comment_modal_save_btn').unbind('click').click(function() {
-      //TODO: 댓글 저장
-      alert("저장되었습니다.");
-      $('#comment_modal_container').modal('toggle');
+      var data = {
+        is_root: false,
+        index_x: selectedPosition.toString()[0],
+        index_y: selectedPosition.toString()[1],
+        content: $('#comment_textarea').val(),
+        author_name: 'anonymous'
+      };
+      HttpUtil.postData('/comments/' + locId + '/' + selectedItemId + '?', data, function(data) {
+        if (data) {
+          alert("저장되었습니다.");
+        }
+      });
     });
   }
 
