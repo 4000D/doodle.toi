@@ -7,13 +7,14 @@ $('document').ready(function() {
   function draw() {
     animateShow();
     HttpUtil.getData('/locations/'+locId+'/comments', {}, function(data) {
+      console.log(data);
       if (data && data.length > 0) {
         boardItems = data;
         for (var i = 0; i < boardItems.length; i++) {
           drawBoardItem(boardItems[i]);
         }
-        bindClickEvent(boardItems[i]);
       }
+      bindClickEvent(boardItems[i]);
     });
   }
 
@@ -57,7 +58,6 @@ $('document').ready(function() {
         for (var i = 0; i < data.children.length; i++) {
           html += '<li>' + data.children[i].content + '</li>';
         }
-        console.log(html);
         $('#comment_list_container').empty();
         $('#comment_list_container').append(html);
       }
