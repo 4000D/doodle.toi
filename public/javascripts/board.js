@@ -58,7 +58,7 @@ $('document').ready(function() {
       var idList = _.pluck(boardItems, '_id');
 
       if (idList[currentIdx]) {
-        audioDom.src = '/upload/' + idList[currentIdx];
+        audioDom.src = '/upload/' + idList[currentIdx] + '.mp3';
         audioDom.play();
       }
 
@@ -66,7 +66,8 @@ $('document').ready(function() {
         currentIdx++;
         audioDom.currentTime = 0;
         if (idList[currentIdx]) {
-          audioDom.find('source').attr('src', '/upload/' + idList[currentIdx]);
+          audioDom.src = '/upload/' + idList[currentIdx] + '.mp3';
+          audioDom.play();
         }
         console.log("ended");
       });
