@@ -16,7 +16,10 @@ var CommentSchema = new Schema(
         type: Schema.Types.ObjectId,
         ref: 'Comment',
         unique: true
-      }], 'created_at' : Date
+      }]
+        , 'index_x' : Number
+        , 'index_y' : Number
+        , 'created_at' : Date
     });
 
 // http://frontendcollisionblog.com/mongodb/2016/01/24/mongoose-populate.html

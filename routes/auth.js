@@ -6,7 +6,8 @@ var passport = require('passport');
 // naver login page
 router.get('/naver', 
   passport.authenticate('naver', {
-    successRedirect: '/login_success.html'
+    successRedirect: '/loading',
+    failureRedirect: '/auth/naver'
   }),
   function (req, res) {
     console.log('/auth/naver failed, stopped');
@@ -22,7 +23,8 @@ router.get('/naver/callback',
 // kakao login page
 router.get('/kakao',
   passport.authenticate('kakao', {
-    successRedirect: '/login_success.html'
+    successRedirect: '/loading',
+    failureRedirect: '/auth/kakao'
   }), 
   function (req, res) {
     console.log('/auth/kakao fails, stopped');
@@ -33,5 +35,6 @@ router.get('/kakao/callback', function (req, res) {
   console.log(`req.user: ${req.user}`);
   res.redirect('/login_success.html')
 });
+
 module.exports = router;
 

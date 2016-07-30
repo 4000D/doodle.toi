@@ -16,13 +16,6 @@ router.get('/:id', function (req, res) {
     CommentController.show(req, res);
 });
 
-/*
- * POST :: replace with /:locationId/:parentCommentId?
- *
-router.post('/', function (req, res) {
-    CommentController.create(req, res);
-});
- */
 
 /*
  * PUT
@@ -46,7 +39,7 @@ router.post('/:locationId/:parentCommentId?', function (req, res) {
 });
 
 /*
- * 
+ * List with populated children
  */
 router.get('/:id/withChildren', function (req, res) {
     CommentController.listChildren(req, res);
