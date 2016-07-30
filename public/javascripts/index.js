@@ -22,6 +22,15 @@ $( document ).ready(function() {
   function changeToLoadingPage() {
     $('#main_page_container').hide();
     $('#loading_page_container').show();
+
+    if (!cur_latitude || !cur_longitude) { //위치 못가져왔을 때 실패 이미지 표시
+      $('#get_location_success_image').hide();
+      $('#get_location_fail_image').show();
+    } else {
+      setTimeout(function() {
+        location.href = "/board?lat="+cur_latitude+"&lng="+cur_longitude;
+      }, 3000);
+    }
   }
 
   function bindClickEvent() {
@@ -36,16 +45,12 @@ $( document ).ready(function() {
     });
   }
 
-
-
   animateLoading();
   bindClickEvent();
-  // 3초 뒤 로그인 페이지로 변경
+  // 2초 뒤 로그인 페이지로 변경
   setTimeout(function() {
     changeToLoginPage();
-  }, 3000);
-
-
+  }, 2000);
 
 
   var
