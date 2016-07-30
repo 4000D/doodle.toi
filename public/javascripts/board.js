@@ -7,7 +7,6 @@ $('document').ready(function() {
   function draw() {
     animateShow();
     HttpUtil.getData('/locations/'+locId+'/comments', {}, function(data) {
-      console.log(data);
       if (data && data.length > 0) {
         boardItems = data;
         for (var i = 0; i < boardItems.length; i++) {
@@ -23,6 +22,9 @@ $('document').ready(function() {
   }
 
   function drawBoardItem(boardItem) {
+    if (boardItem.is_root == false) {
+      return;
+    }
     var targetItem = $('.board-item[data-position=' + boardItem.index_x.toString() + boardItem.index_y.toString() + ']');
     targetItem.attr('data-id', boardItem._id);
     targetItem.children('textarea').text(boardItem.content);
@@ -81,6 +83,7 @@ $('document').ready(function() {
         if (data) {
           alert("저장되었습니다.");
         }
+        getComments(selectedItemId);
       });
     });
   }
