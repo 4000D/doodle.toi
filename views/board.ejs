@@ -31,12 +31,12 @@
 </head>
 <body>
 
-<div id="board_page_container" class="container">
+<div id="board_page_container" class="container" style="display:none;">
     <% for (var i = 0; i < 6; i++) { %>
     <div class="row">
         <% for (var j = 0; j < 6; j++) { %>
         <div class="board-item col-xs-2" data-position="<%= i %><%= j %>">
-            <textarea maxlength="60" readonly></textarea>
+            <textarea maxlength="60" readonly="readonly"></textarea>
         </div>
         <% } %>
     </div>
