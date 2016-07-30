@@ -8,8 +8,17 @@
  *
  */
 $( document ).ready(function() {
-  var 
-    cur_latitude 
+
+  function animateLoading() {
+    $('.loading-image > img').animate({'margin-left' : '-50px'}, 'slow', null, animateLoading);
+    $('.loading-image > img').animate({'margin-left' : '50px'}, 'slow', null, animateLoading);
+  }
+
+  animateLoading();
+
+  var
+    result
+  , cur_latitude
   , cur_longitude
   , loc_id;   
 
@@ -62,5 +71,5 @@ $( document ).ready(function() {
   }
 
   load();
-})
+});
 
