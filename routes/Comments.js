@@ -34,14 +34,14 @@ router.delete('/:id', function (req, res) {
 /*
  * Create with Location and ParentComment
  */
-router.post('/:locationId/:parentCommentId?', function (req, res) {
+router.post('/:location_id/:parent_comment_id?', function (req, res) {
     CommentController.create(req, res);
 });
 
 /*
  * List with populated children
  */
-router.get('/:id/withChildren', function (req, res) {
+router.get('/:id/with_children', function (req, res) {
     CommentController.listChildren(req, res);
 });
 

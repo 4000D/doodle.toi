@@ -71,17 +71,19 @@ module.exports = {
     },
 
     /**
-     * CommentController.create() : '/:locationId/:parent_commentId?'
+     * CommentController.create() : '/:location_id/:parent_comment_id?'
      * TODO: Promise가 왜 안먹히지.... Promise 로 깔끔하게 해보자.
      */
     create: function (req, res) {
-        LocationModel.findOne({_id: req.params.locationId}, function (err, _location) {
-          if (!req.params.parent_commentId) {
+        LocationModel.findOne({_id: req.params.location_id}, function (err, _location) {
+          if (!req.params.parent_comment_id) {
             var Comment = new CommentModel({
               is_root: req.body.is_root,
               content: req.body.content,
               location: _location,
+
               author_name: req.body.author_name, // TODO: check req.user is valid
+
               index_x: req.body.index_x,
               index_y: req.body.index_y,
 
@@ -98,16 +100,18 @@ module.exports = {
                 return res.status(201).json(Comment);
             });
           } else {
-            CommentModel.findOne({_id: req.params.parent_commentId}, function (err, _parent) {
+            CommentModel.findOne({_id: req.params.parent_comment_id}, function (err, _parent) {
               var Comment = new CommentModel({
                 is_root: req.body.is_root,
                 content: req.body.content,
                 location: _location,
                 parent_comment: _parent,
                 
-                author_name: req.user.author_name, // TODO: check req.user is valid
+                author_name: req.body.author_name,
+
                 index_x: req.body.index_x,
                 index_y: req.body.index_y,
+
                 created_at: Date.now()
               });
 
@@ -131,11 +135,11 @@ module.exports = {
           location = null
         , parent_comment = null;
 
-        var queryLocation = LocationModel.findOne({_id: req.params.locationId});
+        var queryLocation = LocationModel.findOne({_id: req.params.location_id});
         queryLocation.then( (err, _location) => location = _location )
           .catch( err => console.error(err) );
 
-        var queryParentComment = CommentModel.findById(req.params.parent_commentId);
+        var queryParentComment = CommentModel.findById(req.params.parent_comment_id);
         queryParentComment
           .then( _parent => parent_comment = _parent )
           .catch( err => parent_comment = null );
@@ -149,7 +153,7 @@ module.exports = {
             });
 
             var Comment = new CommentModel({
-              is_root: req.params.parent_commentId,
+              is_root: req.params.parent_comment_id,
               content: req.body.content,
               location: location,
               parent_comment: parent_comment
@@ -177,7 +181,7 @@ module.exports = {
             }
           ], function() {
             var Comment = new CommentModel({
-              is_root: req.params.parent_commentId,
+              is_root: req.params.parent_comment_id,
               content: req.params.content,
               location: location,
               parent_comment: parent_comment
@@ -196,13 +200,13 @@ module.exports = {
         */
 
           /*
-        LocationModel.findById(req.params.locationId)
+        LocationModel.findById(req.params.location_id)
           .then( _loc => {
-            if(!req.params.parent_commentId)
+            if(!req.params.parent_comment_id)
               return [_loc, null];
             else {
               async.
-              CommentModel.findById(req.params.parent_commentId)
+              CommentModel.findById(req.params.parent_comment_id)
                 .then( _par =>)
             }
           })
