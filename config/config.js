@@ -1,4 +1,5 @@
 var config = {
+  baseURL: 'http://172.29.92.145:3000',
   naver: {
     clientID: 'X2Hu1QvCPx7ayMGJFu4C',
     clientSecret: 'EmMNI6IgZj',
