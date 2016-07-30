@@ -4,22 +4,30 @@ var Schema   = mongoose.Schema;
 
 var CommentSchema = new Schema(
     {
-      'isRoot' : Boolean
-      ,	'content' : String
-      ,	'location' : {
+      'is_root' : Boolean,
+      'content' : String,
+
+      'location' : {
         type: Schema.Types.ObjectId
          , ref: 'Location'
-      },	'parentComment' : {	
+      },
+
+      'parent_comment' : {	
         type: Schema.Types.ObjectId,
         ref: 'Comment'	
-      }, 'children' : [{
+      },
+
+      'children' : [{
         type: Schema.Types.ObjectId,
         ref: 'Comment',
         unique: true
-      }]
-        , 'index_x' : Number
-        , 'index_y' : Number
-        , 'created_at' : Date
+      }],
+
+      'index_x' : Number,
+      'index_y' : Number,
+
+      'author_name': String,
+      'created_at' : Date
     });
 
 // http://frontendcollisionblog.com/mongodb/2016/01/24/mongoose-populate.html
