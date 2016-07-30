@@ -86,8 +86,6 @@ module.exports = {
 
               index_x: req.body.index_x,
               index_y: req.body.index_y,
-
-              created_at: Date.now()
             });
 
             Comment.save(function (err, Comment) {
@@ -111,8 +109,6 @@ module.exports = {
 
                 index_x: req.body.index_x,
                 index_y: req.body.index_y,
-
-                created_at: Date.now()
               });
 
               Comment.save(function (err, Comment) {

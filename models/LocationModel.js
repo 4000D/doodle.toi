@@ -3,8 +3,13 @@ var Schema   = mongoose.Schema;
 
 var LocationSchema = new Schema(
     {	
-      'name' : String,	
+      'name' : {
+        type: String,
+        unique: true
+      },	
+
       'latitude' : Number,	
+
       'longitude' : Number
     });
 

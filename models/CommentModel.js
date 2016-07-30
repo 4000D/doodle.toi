@@ -4,12 +4,20 @@ var Schema   = mongoose.Schema;
 
 var CommentSchema = new Schema(
     {
-      'is_root' : Boolean,
-      'content' : String,
+      'is_root' : {
+        type: Boolean,
+        required: [true, 'Comment.is_root field is not specified']
+      },
+
+      'content' : {
+        type: String,
+        required: [true, 'Comment.content field is not specified']
+      },
 
       'location' : {
-        type: Schema.Types.ObjectId
-         , ref: 'Location'
+        type: Schema.Types.ObjectId,
+        ref: 'Location',
+        required: [true, 'Comment.location is not specified']
       },
 
       'parent_comment' : {	
@@ -23,11 +31,33 @@ var CommentSchema = new Schema(
         unique: true
       }],
 
-      'index_x' : Number,
-      'index_y' : Number,
+      'index_x' : {
+        type: Number,
+        required: [true, 'Comment.index_x is not specified'],
+        validate: {
+          validator: function (v) { return 0 <= v && v < 6; },
+          message: '{VALUE} is not valid value for index_x'
+        }
+      },
 
-      'author_name': String,
-      'created_at' : Date
+      'index_y' : {
+        type: Number,
+        required: [true, 'Comment.index_y is not specified'],
+        validate: {
+          validator: function (v) { return 0 <= v && v < 6; },
+          message: '{VALUE} is not valid value for index_y'
+        }
+      },
+
+      'author_name': {
+        type: String,
+        required: [true, 'Comment.author_name is not specified']
+      },
+
+      'created_at' : {
+        type: Date,
+        default: Date.now
+      }
     });
 
 // http://frontendcollisionblog.com/mongodb/2016/01/24/mongoose-populate.html
