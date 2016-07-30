@@ -29,21 +29,33 @@ passport.use(new NaverStrategy({
     callbackURL: config.naver.callbackURL
 	},
     function(accessToken, refreshToken, profile, done) {
+        UserModel.findOne({
+            'id': profile.id
+        }, function(err, user) {
+            if (!user) {
+                user = new UserModel({
+                    name: profile.displayName,
+                    provider: 'naver',
+                    naver: profile._json
+                });
+                user.save(function(err) {
+                    if (err) console.log(err);
+                    return done(err, user);
+                });
+            } else {
+                return done(err, user);
+            }
+        });
+
+      /*
       UserModel.findOne({
         'id': profile.id
       }, function(err, user) {
         if (!user) {
-          user = new User({
+          user = new UserModel({
             id: profile.id,
             name: profile.displayName,
             email: profile.emails[0].value
-            /*
-            name: profile.displayName,
-            email: profile.emails[0].value,
-            username: profile.displayName,
-            provider: 'naver',
-            naver: profile._json
-            */
           });
           user.save(function(err) {
             if (err) console.log(err);
@@ -53,6 +65,7 @@ passport.use(new NaverStrategy({
             return done(err, user);
         }
       });
+      */
     }
 ));
 
@@ -61,11 +74,23 @@ passport.use(new KakaoStrategy({
     callbackURL : config.kakao.callbackURL
   },
   function(accessToken, refreshToken, profile, done){
+      UserModel.findOne({
+        'id': profile.id
+      }, function(err, user) {
+        if (!user) {
+          user = new UserModel({
+            id: profile.id,
+            name: profile.username,
+          });
+          user.save(function(err) {
+            if (err) console.log(err);
+              return done(err, user);
+          });
+        } else {
+            return done(err, user);
+        }
+      });
     // 사용자의 정보는 profile에 들어있다. 
-    UserModel.findOrCreate(function(err, user) {
-      if (err) { return done(err); }
-      done(null, user);
-    });
   }
 ));
 
@@ -74,6 +99,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users.js');
 var comments = require('./routes/Comments');
 var locations = require('./routes/Locations');
+var auths = require('./routes/auth.js');
 
 // mongoose
 var mongoose = require('mongoose');
@@ -106,6 +132,7 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/comments', comments);
 app.use('/locations', locations);
+app.use('/auth', auths);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
