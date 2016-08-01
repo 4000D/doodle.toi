@@ -100,19 +100,7 @@ module.exports = {
                     });
                 }
 
-                // TSS
-                var REQ = zmq.socket('req');
-
-                REQ.connect(config.routerIPC);
-
-                REQ.send(JSON.stringify({
-                  comment_id: Comment._id,
-                  text: Comment.content
-                }));
-
-                REQ.on('close', function() {
-                  REQ.close();
-                });
+                request_tts(Comment._id, Comment.content);
 
                 return res.status(201).json(Comment);
             });
@@ -138,6 +126,8 @@ module.exports = {
                       });
                   }
 
+                  request_tts(Comment._id, Comment.content);
+                  
                   _parent.children.push(Comment);
                   _parent.save();
                   return res.status(201).json(Comment);
@@ -285,3 +275,19 @@ module.exports = {
     },
 
 };
+
+function request_tts (_id, text) {
+  // TSS
+  var REQ = zmq.socket('req');
+
+  REQ.connect(config.routerIPC);
+
+  REQ.send(JSON.stringify({
+    comment_id: _id,
+    text: text 
+  }));
+
+  REQ.on('close', function() {
+    REQ.close();
+  });
+}

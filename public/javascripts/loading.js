@@ -12,7 +12,8 @@ $( document ).ready(function() {
     result
     , cur_latitude
     , cur_longitude
-    , loc_id;
+    , loc_id
+    , loc_name;
 
   setTimeout(function() {
     if (!cur_latitude || !cur_longitude) {
@@ -39,10 +40,11 @@ $( document ).ready(function() {
     if (dist < min_dist) {
       min_dist = dist;
       loc_id = loc._id;
+      loc_name = loc.name;
     }
   });
 
-    console.log(`closest: ${cur_latitude}, ${cur_longitude} ~ ${loc_id}`);
+    console.log(`closest: ${cur_latitude}, ${cur_longitude} ~ ${loc_id} : ${loc_name}`);
 
     setTimeout(function() {
       location.href = "/board?loc_id="+loc_id;
