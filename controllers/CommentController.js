@@ -76,9 +76,64 @@ module.exports = {
 
     /**
      * CommentController.create() : '/:location_id/:parent_comment_id?'
-     * TODO: Promise가 왜 안먹히지.... Promise 로 깔끔하게 해보자.
      */
     create: function (req, res) {
+        // promise version
+        var 
+          is_root = req.body.is_root,
+          content = req.body.content,
+          index_x = req.body.index_x,
+          index_y = req.body.index_y,
+          author_name = req.body.author_name,
+
+          parent = null;
+
+          LocationModel.findOne({ _id : req.params.location_id }).exec()
+            .then(function(_location) {
+              if(req.params.parent_comment_id)
+                return CommentModel.findOne({ _id : req.params.parent_comment_id }).exec()
+                  .then(function(_parent) {
+                    return {_location : _location, _parent: _parent};
+                  });
+              else 
+                return {_location : _location};
+            })
+            .then(function( {_location, _parent }) { // Parameter Decomposition 
+              var Comment = new CommentModel({
+                is_root: is_root,
+                content: content,
+                location: _location,
+                parent_comment: _parent,
+
+                author_name: author_name,
+                index_x: index_x,
+                index_y: index_y
+              });
+
+              parent = _parent; // 외부 scope로 내보내자. 다음번에 써먹을 수 있도록! :: Promise 를 사용해서 가능
+
+              return Comment.save();
+            })
+            .then(function (Comment) {
+              request_tts(Comment._id, Comment.content);
+
+              if(parent) {
+                parent.children.push(Comment);
+                parent.save();
+              }
+
+              return res.status(200).json(Comment);
+            })
+            .catch(function (error) {
+              return res.status(500).json({
+                message: 'Error when creating Comment',
+                error: error
+              });
+            })
+
+
+
+              /*
         LocationModel.findOne({_id: req.params.location_id}, function (err, _location) {
           if (!req.params.parent_comment_id) {
             var Comment = new CommentModel({
@@ -135,87 +190,8 @@ module.exports = {
             });
           }
         });
-              /*
-        var 
-          location = null
-        , parent_comment = null;
 
-        var queryLocation = LocationModel.findOne({_id: req.params.location_id});
-        queryLocation.then( (err, _location) => location = _location )
-          .catch( err => console.error(err) );
-
-        var queryParentComment = CommentModel.findById(req.params.parent_comment_id);
-        queryParentComment
-          .then( _parent => parent_comment = _parent )
-          .catch( err => parent_comment = null );
-
-        Q.fcall( function () { queryLocation.exec() } ) 
-          .then( function () { queryParentComment.exec() } )
-          .then( function () {
-            console.log('comment create', {
-              location: location, 
-              parent_comment: parent_comment
-            });
-
-            var Comment = new CommentModel({
-              is_root: req.params.parent_comment_id,
-              content: req.body.content,
-              location: location,
-              parent_comment: parent_comment
-            });
-
-            Comment.save(function (err, Comment) {
-                if (err) {
-                    return res.status(500).json({
-                        message: 'Error when creating Comment',
-                        error: err
-                    });
-                }
-                return res.status(201).json(Comment);
-            });
-          });
         */
-        /*
-        async.waterfall([
-            function() {
-              queryLocation.exec();
-              done();
-            }, function(done) {
-              queryParentComment.exec();
-              done();
-            }
-          ], function() {
-            var Comment = new CommentModel({
-              is_root: req.params.parent_comment_id,
-              content: req.params.content,
-              location: location,
-              parent_comment: parent_comment
-            });
-
-            Comment.save(function (err, Comment) {
-                if (err) {
-                    return res.status(500).json({
-                        message: 'Error when creating Comment',
-                        error: err
-                    });
-                }
-                return res.status(201).json(Comment);
-            });
-        });
-        */
-
-          /*
-        LocationModel.findById(req.params.location_id)
-          .then( _loc => {
-            if(!req.params.parent_comment_id)
-              return [_loc, null];
-            else {
-              async.
-              CommentModel.findById(req.params.parent_comment_id)
-                .then( _par =>)
-            }
-          })
-          */
     },
 
     /**
